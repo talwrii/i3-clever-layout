@@ -1,0 +1,9 @@
+*.pyc
+*.egg-info
+dist/
+build/
+coverage.xml
+.coverage
+.tox
+.eggs
+.ropeproject
