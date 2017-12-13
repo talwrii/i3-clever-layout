@@ -21,9 +21,14 @@ LOGGER = logging.getLogger()
 
 def build_parser():
     parser = argparse.ArgumentParser(description='')
+    if 'HOME' in os.environ:
+        default_config_dir = os.path.join(os.environ['HOME'], '.config', 'i3-clever-layout')
+    else:
+        default_config_dir = None
+
     parser.add_argument(
         '--config-dir', '-C',
-        default=os.path.join(os.environ['HOME'], '.config', 'i3-clever-layout'),
+        default=default_config_dir,
         help='Directory to store configuration and data')
     PARSERS = parser.add_subparsers(dest='command')
 

@@ -31,6 +31,5 @@ setuptools.setup(
     classifiers=[
         "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)"
     ],
-    test_suite='nose.collector',
-    install_requires=[]
+    install_requires=['fasteners']
 )
