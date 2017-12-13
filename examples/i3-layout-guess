@@ -1,0 +1,24 @@
+#!/usr/bin/python3
+# usage:
+# --swallow-command 'i3-layout-guess swallow' --run-command 'i3-layout-guess run'
+
+import json
+import sys
+import re
+
+mode, = sys.argv[1:]
+
+data = json.loads(sys.stdin.readline())
+window_properties = data['window_properties']
+if window_properties['class'] == 'Mate-terminal':
+    swallow = [dict(title="^" + re.escape(window_properties['title']) + '$')]
+    command = 'tmuxwin.sh {}'.format(window_properties['title'].replace(' ', '\\ '))
+else:
+    raise Exception('Could not parse')
+
+if mode == 'swallow':
+    print(json.dumps(swallow))
+elif mode == 'run':
+    print(command)
+
+
