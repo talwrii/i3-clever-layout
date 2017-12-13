@@ -1,6 +1,9 @@
 # i3-clever-layout
 
 Save and restore your [i3wm](https://i3wm.org/) layout, spawning applications to start windows.
+Hopefully, a more convenient version of *i3-save-tree*.
+
+Requires Python3 (but can happily coexist with Python2).
 
 # Usage
 
@@ -37,6 +40,7 @@ i3-clever-layout config run_command 'jq .name
 ```
 
 The `--debug` flag may be used to debug your swallow and run commands.
+`i3-clever-layout save -` produces output that can be used with `append_layout` for debugging purposes. This output can also be inspected manually.
 
 # Installation
 
@@ -75,4 +79,7 @@ One scenario would be that a a standard "do-what-I-mean" `run_command` and `swal
 * [i3](https://github.com/i3/i3) provides "library level" functionality to save an restore desktops. [i3-save-tree](https://i3wm.org/docs/layout-saving.html) automates using these libraries somewhat, but requires manual steps that [need to be used each time a layout is saved](https://www.reddit.com/r/i3wm/comments/7j4siz/state_of_the_art_for_i3savetree/dr3qwq5/).
 * [i3-lm](https://github.com/borysn/i3-lm) has similar, approach hard-coding the saving and restoring of a number of applications.
 
+# Development
 
+Due to the interactive nature of this tool tests are annoying to write.
+There are no tests, but `tox` is used to check dependencies, installation and syntax errors.
