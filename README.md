@@ -12,7 +12,7 @@ Requires Python3 (but can happily coexist with Python2).
 
 *i3-clever-layout* attempts to automate the saving and restoring of i3 layouts, together with (optionally) running the applications contained in a layout.
 
-Working out which applications to run and where they should be placed in a layout is in general very hard. But for many use cases it is trivial; therefore, we solve this problem through *configuration* for the users use case. The price of using such a *framework* approach is some loss of generality and ability to debug.
+Working out which applications to run and where they should be placed in a layout is in general very hard. But for many use cases it is trivial; therefore, we solve this problem through *configuration* for the user's specific use case. The price of using such a *framework* approach is some loss of generality and ability to debug.
 
 The user of *i3-clever-layout* must provide two commands:
 
