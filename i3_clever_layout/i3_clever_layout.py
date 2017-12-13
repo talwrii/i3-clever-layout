@@ -42,7 +42,6 @@ def build_parser():
         '--no-run', action='store_false', default=True,
         dest='run',
         help='Do not run spawn commands')
-    
 
     save_parser = PARSERS.add_parser('save', help='Save the current layout')
     save_parser.add_argument('name', type=str)
@@ -209,6 +208,8 @@ def save_layout(layout_file, swallow_command, run_command):
         raise Exception('Could not find focused workspace')
 
     for leaf in get_leaves(focused_workspace):
+        leaf_json = json.dumps(leaf, indent=4)
+        LOGGER.debug('Getting run_command and swallow match for: %s', leaf_json)
         add_swallows(swallow_command, leaf)
         add_run(run_command, leaf)
 
@@ -217,7 +218,15 @@ def save_layout(layout_file, swallow_command, run_command):
 
 def add_swallows(command, leaf):
     command = [c.encode('utf8') for c in command]
-    leaf["swallows"] = json.loads(subprocess.check_output(command, input=json.dumps(leaf).encode('utf8')))
+    leaf_json = json.dumps(leaf).encode('utf8')
+    raw_output = subprocess.check_output(command, input=leaf_json)
+    LOGGER.debug('Trying to parse: %r', raw_output)
+    try:
+        swallow_obj = json.loads(raw_output)
+        leaf["swallows"] =  swallow_obj
+        LOGGER.debug('Swallow matcher: %s', json.dumps(swallow_obj, indent=4))
+    except:
+        raise Exception('Failed to parse: {!r}'.format(raw_output))
 
 def escape_split(s):
     result = []
@@ -273,6 +282,7 @@ def add_run(command, leaf):
         LOGGER.debug('No command for %r', leaf['name'])
         leaf["run"] = None
     else:
+        LOGGER.debug('Run command: %s', raw)
         leaf["run"] = escape_split(raw.strip('\n'))
 
 def sieve_keys(keys, tree):
