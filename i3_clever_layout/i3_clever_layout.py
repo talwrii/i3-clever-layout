@@ -1,23 +1,23 @@
-import sys
-
-if sys.version_info[0] != 3:
-    # FileNotFoundError does not exist in python 2
-    raise Exception('Only works with python 3')
-
 import argparse
 import contextlib
+import itertools
 import json
 import logging
 import os
 import subprocess
+import sys
 import tempfile
 import threading
 
 import fasteners
 
+if sys.version_info[0] != 3:
+    # FileNotFoundError does not exist in python 2
+    raise Exception('Only works with python 3')
+
+
+
 LOGGER = logging.getLogger()
-
-
 
 def build_parser():
     parser = argparse.ArgumentParser(description='')
