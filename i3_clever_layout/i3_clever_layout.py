@@ -103,7 +103,7 @@ def main():
                 raise Exception('No run command set')
 
             if args.name == "-":
-                layout_file = "/dev/stdin"
+                layout_file = "/dev/stdout"
             else:
                 layout_file = os.path.join(layout_dir, args.name)
 
@@ -130,7 +130,7 @@ def main():
 
                 for node in nodes:
                     if node["run"] is None:
-                        LOGGER.debug('node %r has not command', node["name"])
+                        LOGGER.debug('node %r has no command', node["name"])
                         continue
 
                     command = [part.encode('utf8') for part in node["run"]]
