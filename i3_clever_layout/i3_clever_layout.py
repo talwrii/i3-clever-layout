@@ -128,13 +128,14 @@ def main():
                 LOGGER.debug('Running layout load command: %r', command)
                 subprocess.check_call(command)
 
-                for node in nodes:
-                    if node["run"] is None:
+                for node in itertools.chain.from_iterable(map(get_leaves, nodes)):
+                    LOGGER.debug('node %s', json.dumps(node, indent=4))
+                    if 'run' not in node or node["run"] is None:
                         LOGGER.debug('node %r has no command', node["name"])
                         continue
 
                     command = [part.encode('utf8') for part in node["run"]]
-                    LOGGER.debug('Running command load command: %r', command)
+                    LOGGER.debug('Running window  command: %r', command)
                     subprocess.check_call(command)
 
         elif args.command == 'dump':
@@ -176,7 +177,7 @@ def with_data(data_file):
                 stream.write(output)
 
 def walk_descendents(node):
-    children = node["nodes"]
+    children = node.get("nodes", [])
     for child in children:
         yield child
 
@@ -185,7 +186,7 @@ def walk_descendents(node):
 
 def get_leaves(root):
     for node in walk_descendents(root):
-        if not node["nodes"]:
+        if not node.get("nodes", None):
             yield node
 
 def get_focus_path(node):
