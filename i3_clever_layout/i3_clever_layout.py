@@ -181,10 +181,8 @@ def with_data(data_file):
                 stream.write(output)
 
 def walk_descendents(node):
+    yield node
     children = node.get("nodes", [])
-    for child in children:
-        yield child
-
     for child in children:
         yield from walk_descendents(child)
 
