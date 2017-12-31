@@ -303,7 +303,7 @@ def sieve_keys(keys, tree):
 
 LAYOUT_KEYS = [
     "geometry", "floating", "name", "percent", "swallows", "run", "border",
-    "current_border_width", "type"
+    "current_border_width", "type", "layout",
 ]
 def format_layout(node):
     output = [sieve_keys(LAYOUT_KEYS, n) for n in  node["nodes"]]
