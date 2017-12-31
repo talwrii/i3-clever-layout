@@ -48,6 +48,8 @@ def build_parser():
         dest='run',
         help='Do not run spawn commands')
 
+    list_parser = PARSERS.add_parser('list', help='List all layouts')
+
     save_parser = PARSERS.add_parser('save', help='Save the current layout')
     save_parser.add_argument('name', type=str)
     save_parser.add_argument(
@@ -142,7 +144,9 @@ def main():
             filename = os.path.join(layout_dir, args.name)
             with open(filename) as stream:
                  print(stream.read())
-
+        elif args.command == 'list':
+            for filename in os.listdir(layout_dir):
+                print(filename)
         elif args.command == 'config':
             if args.option is not None:
                 if args.value is None:
