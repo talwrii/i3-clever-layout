@@ -130,15 +130,18 @@ def main():
                 LOGGER.debug('Running layout load command: %r', command)
                 subprocess.check_call(command)
 
-                for node in itertools.chain.from_iterable(map(get_leaves, nodes)):
-                    LOGGER.debug('node %s', json.dumps(node, indent=4))
-                    if 'run' not in node or node["run"] is None:
-                        LOGGER.debug('node %r has no command', node["name"])
-                        continue
+                for base_node in nodes:
+                    leaves = list(get_leaves(base_node))
 
-                    command = [part.encode('utf8') for part in node["run"]]
-                    LOGGER.debug('Running window  command: %r', command)
-                    subprocess.check_call(command)
+                    for node in leaves:
+                        LOGGER.debug('node %s', json.dumps(node, indent=4))
+                        if 'run' not in node or node["run"] is None:
+                            LOGGER.debug('node %r has no command', node["name"])
+                            continue
+
+                        command = [part.encode('utf8') for part in node["run"]]
+                        LOGGER.debug('Running window  command: %r', command)
+                        subprocess.check_call(command)
 
         elif args.command == 'dump':
             filename = os.path.join(layout_dir, args.name)
