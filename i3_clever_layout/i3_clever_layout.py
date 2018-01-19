@@ -128,7 +128,7 @@ def main():
 
                 command = [b'i3-msg', b'-t', b'run_command', b"append_layout " + f.name.encode('utf8')]
                 LOGGER.debug('Running layout load command: %r', command)
-                subprocess.check_call(command)
+                subprocess.Popen(command)
 
                 for base_node in nodes:
                     leaves = list(get_leaves(base_node))
@@ -141,7 +141,7 @@ def main():
 
                         command = [part.encode('utf8') for part in node["run"]]
                         LOGGER.debug('Running window  command: %r', command)
-                        subprocess.check_call(command)
+                        subprocess.Popen(command)
 
         elif args.command == 'dump':
             filename = os.path.join(layout_dir, args.name)
