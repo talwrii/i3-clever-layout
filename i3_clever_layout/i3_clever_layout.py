@@ -69,10 +69,10 @@ def split_space(s):
 def ensure_dir(x):
     if not os.path.isdir(x):
     	os.mkdir(x)
-    
+
 
 def main():
-    
+
     args = build_parser().parse_args()
 
     if args.debug:
@@ -81,7 +81,7 @@ def main():
     layout_dir = os.path.join(args.config_dir, 'layouts')
 
     LOGGER.debug('Using configuration directory %r', args.config_dir)
-    
+
     ensure_dir(args.config_dir)
     ensure_dir(layout_dir)
     settings_file = os.path.join(args.config_dir, 'config.json')
