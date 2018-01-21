@@ -145,8 +145,11 @@ def main():
                             continue
 
                         command = [part.encode('utf8') for part in node["run"]]
-                        LOGGER.debug('Running window  command: %r', command)
-                        subprocess.Popen(command)
+                        if args.run:
+                            LOGGER.debug('Running window  command: %r', command)
+                            subprocess.Popen(command)
+                        else:
+                            LOGGER.debug('Not running window command: %r', command)
 
         elif args.command == 'dump':
             filename = os.path.join(layout_dir, args.name)
