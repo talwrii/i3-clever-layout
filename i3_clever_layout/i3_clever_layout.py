@@ -114,10 +114,15 @@ def main():
 
         elif args.command == 'load':
             filename = os.path.join(layout_dir, args.name)
+            LOGGER.debug('Loading config: %r', filename)
             with tempfile.NamedTemporaryFile(delete=False) as f:
-                print(f.name)
                 with open(filename) as stream:
-                    nodes = json.loads(stream.read())
+                    try:
+                        raw_data = stream.read()
+                        nodes = json.loads(raw_data)
+                    except:
+                        LOGGER.exception('Could not parse: %s', raw_data)
+                        raise
 
                 for node in nodes:
                     f.write(json.dumps(node, indent=2, sort_keys=True).encode('utf8'))
