@@ -36,7 +36,7 @@ A default run- and swallow- command can be set using the config command
 
 ```
 i3-clever-layout config swallow_command 'jq [{title:.name}]'
-i3-clever-layout config run_command 'jq .name
+i3-clever-layout config run_command 'jq .name'
 ```
 
 The `--debug` flag may be used to debug your swallow and run commands.
