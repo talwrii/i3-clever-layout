@@ -46,7 +46,7 @@ The `--debug` flag may be used to debug your swallow and run commands.
 
 ```
 sudo apt-get install python3-pip # requires python 3
-pip3 install git+https://github.com/talwrii/clixpath#egg=clixpath
+pip3 install --user git+https://github.com/talwrii/i3-clever-layout#egg=i3-clever-layout
 ```
 
 # Background
