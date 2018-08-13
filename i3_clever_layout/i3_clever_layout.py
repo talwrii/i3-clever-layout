@@ -15,8 +15,6 @@ if sys.version_info[0] != 3:
     # FileNotFoundError does not exist in python 2
     raise Exception('Only works with python 3')
 
-
-
 LOGGER = logging.getLogger()
 
 def build_parser():
@@ -49,6 +47,8 @@ def build_parser():
         help='Do not run spawn commands')
 
     list_parser = PARSERS.add_parser('list', help='List all layouts')
+
+    focused_parser = PARSERS.add_parser('focused', help='Get information about the focused window')
 
     save_parser = PARSERS.add_parser('save', help='Save the current layout')
     save_parser.add_argument('name', type=str)
@@ -158,6 +158,9 @@ def main():
         elif args.command == 'list':
             for filename in os.listdir(layout_dir):
                 print(filename)
+        elif args.command == 'focused':
+            focused = get_focus_path(get_tree())[-1]
+            print(json.dumps(focused))
         elif args.command == 'config':
             if args.option is not None:
                 if args.value is None:
